@@ -6,7 +6,8 @@ An independent Obsidian desktop plugin that saves messages from a compatible
 WeChat inbox service as Markdown notes, Obsidian Bases views and `.duowei` tables.
 
 **Version:** 0.1.7 · **Minimum Obsidian:** 1.11.4 · **Author:** peyote ·
-**License:** [GPL-3.0-only](LICENSE)
+**License:** [GPL-3.0-only](LICENSE) ·
+**Website:** [peyote.info/plugins/wechat2ob](https://peyote.info/plugins/wechat2ob/)
 
 > **Client only.** This repository does not publish the production inbox backend,
 > WeChat login/polling code or backend installers. Receiving real messages requires
@@ -110,7 +111,8 @@ and [third-party notices](THIRD_PARTY_NOTICES.md). The license does not grant
 rights to the separately distributed backend or other products.
 
 [Issues](https://github.com/jepicaju862-lab/wechat2ob/issues) ·
-[Website](https://peyote.info/) · QQ group: `1094620986` ·
+[Plugin website](https://peyote.info/plugins/wechat2ob/) ·
+[peyote.info](https://peyote.info/) · QQ group: `1094620986` ·
 [Email](mailto:jepicaju862@gmail.com)
 
 This is an independent third-party project, not an official Obsidian or Tencent

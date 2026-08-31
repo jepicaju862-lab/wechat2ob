@@ -6,7 +6,8 @@
 Obsidian Bases 视图和 `.duowei` 表格，三种输出可组合使用。
 
 **版本：0.1.7，桌面测试版** · **最低 Obsidian：1.11.4** · **作者：peyote** ·
-**许可：[GPL-3.0-only](LICENSE)**
+**许可：[GPL-3.0-only](LICENSE)** ·
+**官网：[peyote.info/plugins/wechat2ob](https://peyote.info/plugins/wechat2ob/)**
 
 > **本次仅开源插件，不开源生产后端。** 仓库和 GitHub Release 不包含微信登录、轮询、
 > 媒体解码、后端源码或后端安装包。收取真实消息需要另行获得并运行兼容的收件服务及 API Token。
@@ -95,7 +96,8 @@ Copyright (C) 2026 peyote。采用 **GPL-3.0-only**，无担保。
 [第三方说明](THIRD_PARTY_NOTICES.md)。
 
 [问题反馈](https://github.com/jepicaju862-lab/wechat2ob/issues) ·
-[官网](https://peyote.info/) · QQ 群：`1094620986` ·
+[插件官网](https://peyote.info/plugins/wechat2ob/) ·
+[peyote.info](https://peyote.info/) · QQ 群：`1094620986` ·
 [邮箱](mailto:jepicaju862@gmail.com)
 
 本项目与 Obsidian、腾讯/微信官方无从属关系。参考
