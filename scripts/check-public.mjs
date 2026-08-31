@@ -67,7 +67,7 @@ assert.equal(Object.keys(pkg.dependencies || {}).length, 0, 'Review runtime depe
 assert.ok(!/services[\\/]|backend[\\/]/i.test(JSON.stringify(pkg.scripts)), 'Client scripts must be independent');
 assert.equal(createHash('sha256').update(await fs.readFile(path.join(root, 'LICENSE'))).digest('hex'),
   '8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903', 'Full, unmodified GPL v3 text required');
-for (const file of ['README.md', 'README.zh-CN.md', 'NOTICE', 'LICENSE_SCOPE.md']) {
+for (const file of ['README.md', 'README.en.md', 'NOTICE', 'LICENSE_SCOPE.md']) {
   assert.ok((await read(file)).includes('GPL-3.0-only'), `Missing license identifier: ${file}`);
 }
 if (process.env.RELEASE_TAG) {

@@ -1,110 +1,95 @@
-[English](README.md) | [简体中文](README.zh-CN.md)
+[简体中文](README.md) | [English](README.en.md)
 
 # WeChat2Ob
 
-An independent Obsidian desktop plugin that saves messages from a compatible
-WeChat inbox service as Markdown notes, Obsidian Bases views and `.duowei` tables.
+独立的 Obsidian 微信收件客户端，将兼容收件服务中的消息保存为 Markdown 笔记、
+Obsidian Bases 视图和 `.duowei` 表格，三种输出可组合使用。
 
-**Version:** 0.1.7 · **Minimum Obsidian:** 1.11.4 · **Author:** peyote ·
-**License:** [GPL-3.0-only](LICENSE) ·
-**Website:** [peyote.info/plugins/wechat2ob](https://peyote.info/plugins/wechat2ob/)
+**版本：0.1.7，桌面测试版** · **最低 Obsidian：1.11.4** · **作者：peyote** ·
+**许可：[GPL-3.0-only](LICENSE)** ·
+**官网：[peyote.info/plugins/wechat2ob](https://peyote.info/plugins/wechat2ob/)**
 
-> **Client only.** This repository holds the Obsidian plugin. Receiving real
-> messages also requires the inbox service, which is licensed under the same
-> GPL-3.0-only terms but distributed separately, with its complete corresponding
-> source inside each package; see [Inbox service](#inbox-service). Installing this
-> plugin alone does not connect to WeChat, and no upstream availability is promised.
+> **本仓库是插件源码；收件服务单独分发。** 仓库和 GitHub Release 不包含服务安装包。
+> 收取真实消息需要另行下载并运行收件服务及其 API Token，仅安装插件不能直接连接微信。
+> 服务同样采用 GPL-3.0-only，安装包内自带完整对应源码，见[收件服务下载](#收件服务下载)。
+> 不承诺上游接口始终可用。
 
-## Features
+## 功能
 
-| Output | Behavior | Requirement |
+| 输出 | 实现 | 要求 |
 | --- | --- | --- |
-| Markdown | Append to a daily note or one selected `.md` file | Obsidian |
-| Bases | Index receiving notes, one row per file | Obsidian core Bases |
-| `.duowei` | One row per message; create a table or map existing fields | Compatible viewer for visual editing |
+| Markdown | 按接收日期追加到日记，或追加到指定 `.md` 文件 | 无需多维表格插件 |
+| Bases | 汇总收件笔记，每个文件一行 | 启用 Obsidian 核心 Bases |
+| `.duowei` | 每条消息一行；新建表格或映射已有字段 | 可视化查看需要兼容插件 |
 
-- Save text, images, files, video and voice attachments, including transcripts
-  already supplied by the service. Audio conversion is a service responsibility.
-- Preserve existing note text and table fields, records and views. The first write
-  to a mapped table creates a backup.
-- Verify attachment size and SHA-256, keep local progress, retry incomplete writes
-  and acknowledge a message only after all selected outputs succeed.
-- Keep settings, Token storage and client progress separate from other plugins.
-  No Duowei Table Pro activation or runtime is required by this client.
+- 支持文字、图片、文件、视频、语音附件及服务已有转写；音频转换由独立服务负责。
+- 保留已有笔记正文、属性及表格字段、记录和视图；首次写入映射表格前自动备份。
+- 校验附件大小和 SHA-256，持久化记录进度，失败可重试，全部输出成功后再确认消息。
+- 插件 ID、设置、Token 和客户端进度独立，不读取其他插件配置，不依赖多维表格商业授权。
 
-The interface is currently in Simplified Chinese. The plugin does not import the
-full WeChat database, capture all friends' conversations, send automatic replies
-or perform general speech recognition. Mobile execution is not supported.
+不扫描完整微信数据库，不同步普通好友的所有聊天记录，不自动回复，不提供通用语音识别。
+当前界面为简体中文；仅支持桌面端运行，文件可通过用户自己的库同步方式在手机查看。
 
-## Install
+## 安装
 
-Download `main.js`, `manifest.json` and `styles.css` from the same
-[GitHub Release](https://github.com/jepicaju862-lab/wechat2ob/releases).
-Create `<vault>/.obsidian/plugins/wechat2ob/`, copy the three files there, reload
-Obsidian and enable **WeChat2Ob** in Community plugins. The source-code archive
-is for building, not a ready-to-install plugin. Community-directory submission
-is separate; this repository does not claim approval or listing.
+从同一个 [GitHub Release](https://github.com/jepicaju862-lab/wechat2ob/releases)
+下载 `main.js`、`manifest.json`、`styles.css`，放入：
 
-For upgrades, replace only program files and preserve `data.json`, `state/` and
-the device's SecretStorage. Back up the vault before testing.
+```text
+<你的库>/.obsidian/plugins/wechat2ob/
+```
 
-## Inbox service
+重新加载 Obsidian，在“设置 → 第三方插件”中启用 WeChat2Ob。自动生成的 Source code
+压缩包用于开发，需要先构建；本次没有宣称已经上架或通过官方社区审核。
 
-The inbox service is distributed separately and is not part of this repository.
-It is free software under the same **GPL-3.0-only** terms as the plugin: every
-package ships its complete corresponding source under `src/` and `installer/`,
-together with `LICENSE` and `NOTICE`.
+升级仅替换程序文件，保留本插件 `data.json`、`state/` 和本设备 SecretStorage。
+请先备份并在测试库试用，不覆盖其他插件目录。
 
-| Platform | Download (Baidu Netdisk) |
+## 收件服务下载
+
+收件服务独立分发，不属于本仓库，但与插件采用同一套 **GPL-3.0-only** 授权：
+每个安装包内自带完整对应源码（`src/` 与 `installer/`）及 `LICENSE`、`NOTICE`。
+
+| 平台 | 下载（百度网盘） |
 | --- | --- |
-| Windows 10/11 x64 | [WeChat2Ob-Inbox-0.1.1-win32-x64.zip](https://pan.baidu.com/s/1BtqNJD_6_JkYKz7wWOIS2A?pwd=qrq3) · access code `qrq3` |
-| macOS 13.5+ Apple silicon | [WeChat2Ob-Inbox-0.1.1-darwin-mac-arm64.zip](https://pan.baidu.com/s/1fSEEcyGH7eYJZtLfwpG6Og?pwd=sdt2) · access code `sdt2` |
-| macOS 13.5+ Intel | [WeChat2Ob-Inbox-0.1.1-darwin-mac-x64.zip](https://pan.baidu.com/s/14-kprOxIZI6z6Qv7yFG7ww?pwd=5tsb) · access code `5tsb` |
+| Windows 10/11 x64 | [WeChat2Ob-Inbox-0.1.1-win32-x64.zip](https://pan.baidu.com/s/1BtqNJD_6_JkYKz7wWOIS2A?pwd=qrq3) · 提取码 `qrq3` |
+| macOS 13.5+ Apple 芯片 | [WeChat2Ob-Inbox-0.1.1-darwin-mac-arm64.zip](https://pan.baidu.com/s/1fSEEcyGH7eYJZtLfwpG6Og?pwd=sdt2) · 提取码 `sdt2` |
+| macOS 13.5+ Intel | [WeChat2Ob-Inbox-0.1.1-darwin-mac-x64.zip](https://pan.baidu.com/s/14-kprOxIZI6z6Qv7yFG7ww?pwd=5tsb) · 提取码 `5tsb` |
 
-Service version 0.1.1. Each package bundles the official Node.js 24.20.0 runtime,
-so no separate Node.js, Python, FFmpeg or Docker install is needed. Read `先读我.md`
-inside the archive before installing. The installers are not commercially signed or
-Apple-notarized, and the macOS packages have not completed hardware acceptance
-testing.
+服务版本 0.1.1，内置官方 Node.js 24.20.0，无需另装 Node.js、Python、FFmpeg 或 Docker。
+安装前请先阅读压缩包内的 `先读我.md`。安装器未做商业签名或 Apple 公证，
+Mac 包尚未完成真机验收。
 
-## Connect and use
+## 连接与使用
 
-1. Obtain and set up a compatible inbox service separately. If you do not have
-   one, the plugin cannot receive real WeChat messages.
-2. If an existing WeChat2Ob service is installed locally, select
-   **自动连接本机服务**. It reads only the local `WeChat2ObInbox/connection.json`.
-   Otherwise expand manual connection, enter the endpoint and save its API Token.
-3. Choose daily notes or a fixed Markdown file. Enable Bases and/or `.duowei`
-   if needed, then select **保存设置**.
-4. Select **立即同步** or enable automatic sync. Successful automatic local
-   connection enables automatic sync; a fresh install starts with it disabled.
+1. 另行取得并配置兼容的收件服务；没有服务时，插件不能收取真实消息。
+2. 本机已安装 WeChat2Ob 服务时，点击 **自动连接本机服务**；它仅读取
+   `WeChat2ObInbox/connection.json`。也可展开手动连接，填写地址并保存 API Token。
+3. 选择日记或指定 Markdown 文件，按需启用 Bases、`.duowei`，点击 **保存设置**。
+4. 点击 **立即同步**，或开启自动同步。初次安装自动同步默认关闭；自动连接成功后会开启。
 
-The default endpoint is `http://127.0.0.1:7342`. Remote services require HTTPS.
-Run only one upstream inbox service for a given ClawBot. An existing compatible
-service can be entered manually; the plugin does not read another plugin's
-configuration or take over its login.
+默认本机地址 `http://127.0.0.1:7342`，远程地址必须使用 HTTPS。
+同一个 ClawBot 只运行一个上游收件服务；可以手动连接已有兼容服务，
+但不会自动接管其他插件、读取其密钥或搬迁其数据。
 
-Messages append by their received date in the chosen time zone. Bases still
-needs Markdown source notes when the Markdown toggle is off. Switching outputs
-or paths affects later deliveries, not an automatic replay of acknowledged history.
-See the [Chinese user guide](docs/使用指南.md) and [HTTP contract](docs/CLIENT_API.md).
+消息按接收日期和所选时区写入，正文只追加内容、已有转写与附件，不添加重复标题或隐藏标记。
+Bases 需要 Markdown 作为数据源，只开 Bases 时仍会写笔记。
+更换路径或输出选项应用于后续消息，不自动重放已确认历史。
+详见 [使用指南](docs/使用指南.md) 与 [客户端 HTTP 接口](docs/CLIENT_API.md)。
 
-## Data and privacy
+## 隐私与网络
 
-The plugin makes authenticated HTTP requests only to the inbox endpoint configured
-by the user: health, message listing, attachments and acknowledgements. It has no
-telemetry, analytics, advertising, software activation requests or automatic code
-downloads. It does not send vault note bodies to the service. Requests disclose
-the client identifier and acknowledged message identifiers to that service.
+插件仅请求用户配置的收件服务，获取健康状态、消息和附件，以及提交成功确认。
+没有遥测、统计、广告、软件激活请求或自动下载执行代码；不会上传库中笔记正文。
+服务能接收到客户端 ID 和被确认的消息 ID。
 
-The API Token is stored in Obsidian SecretStorage, not plugin `data.json`.
-`state/` contains message bodies and recovery information and must be treated as
-private. Do not publish Tokens, connection files, messages, attachments, logs or
-vault backups when reporting issues. Use synthetic, redacted reproductions.
+API Token 保存在 Obsidian SecretStorage，不写入插件 `data.json`。
+私人 `state/` 含消息正文及恢复记录，请勿公开。反馈问题时使用合成、脱敏示例，
+不要上传 Token、连接文件、微信消息、附件、日志或库备份。
 
-## Develop
+## 开发与构建
 
-Use Node.js 24.14+ and npm. Python 3.11+ is needed only for the optional local ZIP.
+需要 Node.js 24.14+ 和 npm。只有可选的本地 ZIP 打包需要 Python 3.11+。
 
 ```sh
 npm ci
@@ -112,26 +97,22 @@ npm run verify
 npm run package
 ```
 
-`verify` runs the publication boundary check, TypeScript check, build inspection
-and plugin tests. Tests use a loopback-only synthetic fixture, not the production
-backend or a WeChat login. No backend dependency install is needed.
-`package` additionally produces `dist/WeChat2Ob-0.1.7.zip` for local installation;
-GitHub Releases publish only the three standard plugin assets. Each release
-points to its complete corresponding source at the matching Git tag.
-See [RELEASING.md](RELEASING.md).
+`verify` 检查公开文件清单、TypeScript、构建输入与插件测试；不安装或测试生产后端。
+测试模拟器只在本机回环地址生成合成消息，不连接微信。
+`package` 额外生成本地安装包 `dist/WeChat2Ob-0.1.7.zip`。
+GitHub Release 只发布三个标准插件文件，并提供构建来源证明。
+对应标签中的源码和构建脚本构成该版本的完整插件源码。发布步骤见 [RELEASING.md](RELEASING.md)。
 
-## License and support
+## 授权与支持
 
-Copyright (C) 2026 peyote. Licensed under **GPL-3.0-only**, with no warranty.
-The plugin is free and has no paid activation. Its API Token is service
-authentication, not a plugin license key. See [license scope](LICENSE_SCOPE.md)
-and [third-party notices](THIRD_PARTY_NOTICES.md). The license does not grant
-rights to the separately distributed backend or other products.
+Copyright (C) 2026 peyote。采用 **GPL-3.0-only**，无担保。
+插件免费，没有付费激活、激活码或设备数授权；API Token 是收件服务访问凭据，不是插件许可证。
+本次许可不扩展到未公开的后端或其他产品，详见 [授权范围](LICENSE_SCOPE.md) 与
+[第三方说明](THIRD_PARTY_NOTICES.md)。
 
-[Issues](https://github.com/jepicaju862-lab/wechat2ob/issues) ·
-[Plugin website](https://peyote.info/plugins/wechat2ob/) ·
-[peyote.info](https://peyote.info/) · QQ group: `1094620986` ·
-[Email](mailto:jepicaju862@gmail.com)
+[问题反馈](https://github.com/jepicaju862-lab/wechat2ob/issues) ·
+[插件官网](https://peyote.info/plugins/wechat2ob/) ·
+[peyote.info](https://peyote.info/) · QQ 群：`1094620986` ·
+[邮箱](mailto:jepicaju862@gmail.com)
 
-This is an independent third-party project, not an official Obsidian or Tencent
-product.
+本项目与 Obsidian、腾讯/微信官方无从属关系。

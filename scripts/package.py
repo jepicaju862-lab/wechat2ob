@@ -11,7 +11,7 @@ version = json.loads((root / "manifest.json").read_text(encoding="utf-8"))["vers
 if sys.argv[1:] != [version]:
     raise SystemExit("Version must match manifest.json")
 files = ["main.js", "manifest.json", "styles.css", "LICENSE", "NOTICE",
-         "LICENSE_SCOPE.md", "README.md", "README.zh-CN.md", "THIRD_PARTY_NOTICES.md",
+         "LICENSE_SCOPE.md", "README.md", "README.en.md", "THIRD_PARTY_NOTICES.md",
          "docs/使用指南.md", "docs/CLIENT_API.md", "RELEASING.md", "RELEASE_NOTES.md"]
 output = root / "dist" / f"WeChat2Ob-{version}.zip"
 output.parent.mkdir(parents=True, exist_ok=True)
