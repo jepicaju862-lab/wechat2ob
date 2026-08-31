@@ -28,8 +28,8 @@ the full license and client documentation and is verified against its fixed list
 
 ## GitHub convention
 
-Use the matching semver tag, preferably without `v` (for example `0.1.7`), following
-Side-Comments-origin. The manifest, package, lockfile and `versions.json` must agree.
+Use the matching semver tag, preferably without `v` (for example `0.1.7`). The
+manifest, package, lockfile and `versions.json` must agree.
 Push the reviewed main commit first and wait for its CI verification before
 pushing the version tag. Do not use `--force` or overwrite a published tag.
 

@@ -85,7 +85,7 @@ npm run package
 `verify` 检查公开文件清单、TypeScript、构建输入与插件测试；不安装或测试生产后端。
 测试模拟器只在本机回环地址生成合成消息，不连接微信。
 `package` 额外生成本地安装包 `dist/WeChat2Ob-0.1.7.zip`。
-GitHub Release 与 Side-Comments-origin 一样只发布三个标准插件文件，并提供构建来源证明。
+GitHub Release 只发布三个标准插件文件，并提供构建来源证明。
 对应标签中的源码和构建脚本构成该版本的完整插件源码。发布步骤见 [RELEASING.md](RELEASING.md)。
 
 ## 授权与支持

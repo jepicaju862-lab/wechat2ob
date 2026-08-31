@@ -98,9 +98,9 @@ npm run package
 and plugin tests. Tests use a loopback-only synthetic fixture, not the production
 backend or a WeChat login. No backend dependency install is needed.
 `package` additionally produces `dist/WeChat2Ob-0.1.7.zip` for local installation;
-GitHub Releases publish only the three standard plugin assets, matching the
-Side-Comments-origin release convention. Each release points to its complete
-corresponding source at the matching Git tag. See [RELEASING.md](RELEASING.md).
+GitHub Releases publish only the three standard plugin assets. Each release
+points to its complete corresponding source at the matching Git tag.
+See [RELEASING.md](RELEASING.md).
 
 ## License and support
 

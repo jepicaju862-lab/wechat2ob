@@ -4,9 +4,7 @@ Copyright (C) 2026 peyote. The WeChat2Ob plugin code, tests, build scripts,
 styles and documentation in this repository are licensed under **GPL-3.0-only**,
 unless a file explicitly identifies a third-party license. The complete,
 unmodified GPL version 3 text is in [LICENSE](LICENSE); the program notice is
-in [NOTICE](NOTICE). This matches the license identifier in
-[Side-Comments-origin's package.json](https://github.com/jepicaju862-lab/Side-Comments-origin/blob/main/package.json).
-It is not an MIT release or a GPL-3.0-or-later release.
+in [NOTICE](NOTICE). It is not an MIT release or a GPL-3.0-or-later release.
 
 The plugin is free to use and does not require a purchase, activation code,
 device authorization or license server. An inbox API Token authenticates access
@@ -38,7 +36,7 @@ with or endorsed by Obsidian or Tencent/WeChat.
 
 本仓库插件源码、测试、构建脚本、样式和文档统一采用 **GPL-3.0-only**，
 作者署名 **peyote**。第三方组件保留自身许可；完整 GPL v3 原文见 LICENSE。
-与参考项目当前的 GPL-3.0-only 一致，不采用旧版 MIT，也不添加“仅限非商业”等额外限制。
+不采用 MIT，也不添加“仅限非商业”等额外限制。
 
 插件免费，无购买、激活码、设备授权或商业授权服务器。设置中的 API Token 是收件服务的访问凭据，
 不是插件激活码。开源插件仍需要可用的独立收件服务才能接收真实微信消息。
