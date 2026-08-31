@@ -20,11 +20,11 @@ documented HTTP interface; it neither imports nor bundles backend code.
 login or production service code.
 
 This license grants rights to the material distributed here. It does not change
-the licenses of an undistributed backend, Duowei Table Pro, Obsidian or third-party
-components. This scope statement does not remove any rights or obligations under
-the GPL for covered work. If code is later moved between components, review its
-licensing before release rather than assuming HTTP or directory boundaries alone
-decide the legal result.
+the licenses of the separately distributed backend, Duowei Table Pro, Obsidian or
+third-party components. This scope statement does not remove any rights or
+obligations under the GPL for covered work. If code is later moved between
+components, review its licensing before release rather than assuming HTTP or
+directory boundaries alone decide the legal result.
 
 When redistributing the plugin, preserve the copyright and license notices and
 meet the GPL's corresponding-source requirements. Official binary releases link
@@ -43,5 +43,5 @@ with or endorsed by Obsidian or Tencent/WeChat.
 
 此次仅公开插件，不包含生产后端、微信登录和轮询实现、媒体解码器、安装器、部署配置、密钥或消息数据库。
 测试模拟器只产生合成消息，不连接微信，不是生产后端的开源版本。
-本次许可不改变未分发后端、多维表格产品、Obsidian 或第三方组件的既有授权；
+本次许可不改变另行分发的后端、多维表格产品、Obsidian 或第三方组件的既有授权；
 也不免除 GPL 对实际受其覆盖作品规定的义务。以后移动或复用代码时应重新核对许可。

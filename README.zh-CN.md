@@ -11,8 +11,8 @@ Obsidian Bases 视图和 `.duowei` 表格，三种输出可组合使用。
 
 > **本次仅开源插件，不开源生产后端。** 仓库和 GitHub Release 不包含微信登录、轮询、
 > 媒体解码、后端源码或后端安装包。收取真实消息需要另行获得并运行兼容的收件服务及 API Token。
-> 仅安装插件不能直接连接微信。本次没有公开后端下载入口；服务获取方式请联系维护者，
-> 不承诺后端何时公开或上游接口始终可用。
+> 仅安装插件不能直接连接微信。服务安装包通过网盘单独分发，见[收件服务下载](#收件服务下载)；
+> 后端源码不在此公开，也不适用本仓库的 GPL-3.0-only 授权，不承诺何时公开或上游接口始终可用。
 
 ## 功能
 
@@ -44,6 +44,21 @@ Obsidian Bases 视图和 `.duowei` 表格，三种输出可组合使用。
 
 升级仅替换程序文件，保留本插件 `data.json`、`state/` 和本设备 SecretStorage。
 请先备份并在测试库试用，不覆盖其他插件目录。
+
+## 收件服务下载
+
+收件服务独立分发，不属于本仓库，也不开源：微信登录、轮询和媒体解码实现不在此公开，
+不适用本仓库的 GPL-3.0-only 授权。
+
+| 平台 | 下载（百度网盘） |
+| --- | --- |
+| Windows 10/11 x64 | [WeChat2Ob-Inbox-0.1.1-win32-x64.zip](https://pan.baidu.com/s/1BtqNJD_6_JkYKz7wWOIS2A?pwd=qrq3) · 提取码 `qrq3` |
+| macOS 13.5+ Apple 芯片 | [WeChat2Ob-Inbox-0.1.1-darwin-mac-arm64.zip](https://pan.baidu.com/s/1fSEEcyGH7eYJZtLfwpG6Og?pwd=sdt2) · 提取码 `sdt2` |
+| macOS 13.5+ Intel | [WeChat2Ob-Inbox-0.1.1-darwin-mac-x64.zip](https://pan.baidu.com/s/14-kprOxIZI6z6Qv7yFG7ww?pwd=5tsb) · 提取码 `5tsb` |
+
+服务版本 0.1.1，内置官方 Node.js 24.20.0，无需另装 Node.js、Python、FFmpeg 或 Docker。
+安装前请先阅读压缩包内的 `先读我.md`。安装器未做商业签名或 Apple 公证，
+Mac 包尚未完成真机验收。
 
 ## 连接与使用
 

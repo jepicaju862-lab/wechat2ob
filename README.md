@@ -12,9 +12,9 @@ WeChat inbox service as Markdown notes, Obsidian Bases views and `.duowei` table
 > **Client only.** This repository does not publish the production inbox backend,
 > WeChat login/polling code or backend installers. Receiving real messages requires
 > a separately obtained, running inbox service and its API Token. Installing this
-> plugin alone does not connect to WeChat. This release does not provide a public
-> backend download. Contact the maintainer about service availability; no future
-> backend release or upstream availability is promised.
+> plugin alone does not connect to WeChat. The service is distributed separately as
+> a closed-source installer; see [Inbox service](#inbox-service). No future backend
+> source release or upstream availability is promised.
 
 ## Features
 
@@ -48,6 +48,24 @@ is separate; this repository does not claim approval or listing.
 
 For upgrades, replace only program files and preserve `data.json`, `state/` and
 the device's SecretStorage. Back up the vault before testing.
+
+## Inbox service
+
+The inbox service is distributed separately and is not part of this repository.
+It is not open source: its WeChat login, polling and media decoding implementation
+is not published here and is not covered by this repository's GPL-3.0-only license.
+
+| Platform | Download (Baidu Netdisk) |
+| --- | --- |
+| Windows 10/11 x64 | [WeChat2Ob-Inbox-0.1.1-win32-x64.zip](https://pan.baidu.com/s/1BtqNJD_6_JkYKz7wWOIS2A?pwd=qrq3) · access code `qrq3` |
+| macOS 13.5+ Apple silicon | [WeChat2Ob-Inbox-0.1.1-darwin-mac-arm64.zip](https://pan.baidu.com/s/1fSEEcyGH7eYJZtLfwpG6Og?pwd=sdt2) · access code `sdt2` |
+| macOS 13.5+ Intel | [WeChat2Ob-Inbox-0.1.1-darwin-mac-x64.zip](https://pan.baidu.com/s/14-kprOxIZI6z6Qv7yFG7ww?pwd=5tsb) · access code `5tsb` |
+
+Service version 0.1.1. Each package bundles the official Node.js 24.20.0 runtime,
+so no separate Node.js, Python, FFmpeg or Docker install is needed. Read `先读我.md`
+inside the archive before installing. The installers are not commercially signed or
+Apple-notarized, and the macOS packages have not completed hardware acceptance
+testing.
 
 ## Connect and use
 
