@@ -9,12 +9,11 @@ WeChat inbox service as Markdown notes, Obsidian Bases views and `.duowei` table
 **License:** [GPL-3.0-only](LICENSE) ·
 **Website:** [peyote.info/plugins/wechat2ob](https://peyote.info/plugins/wechat2ob/)
 
-> **Client only.** This repository does not publish the production inbox backend,
-> WeChat login/polling code or backend installers. Receiving real messages requires
-> a separately obtained, running inbox service and its API Token. Installing this
-> plugin alone does not connect to WeChat. The service is distributed separately as
-> a closed-source installer; see [Inbox service](#inbox-service). No future backend
-> source release or upstream availability is promised.
+> **Client only.** This repository holds the Obsidian plugin. Receiving real
+> messages also requires the inbox service, which is licensed under the same
+> GPL-3.0-only terms but distributed separately, with its complete corresponding
+> source inside each package; see [Inbox service](#inbox-service). Installing this
+> plugin alone does not connect to WeChat, and no upstream availability is promised.
 
 ## Features
 
@@ -52,8 +51,9 @@ the device's SecretStorage. Back up the vault before testing.
 ## Inbox service
 
 The inbox service is distributed separately and is not part of this repository.
-It is not open source: its WeChat login, polling and media decoding implementation
-is not published here and is not covered by this repository's GPL-3.0-only license.
+It is free software under the same **GPL-3.0-only** terms as the plugin: every
+package ships its complete corresponding source under `src/` and `installer/`,
+together with `LICENSE` and `NOTICE`.
 
 | Platform | Download (Baidu Netdisk) |
 | --- | --- |
