@@ -100,6 +100,4 @@ Copyright (C) 2026 peyote。采用 **GPL-3.0-only**，无担保。
 [peyote.info](https://peyote.info/) · QQ 群：`1094620986` ·
 [邮箱](mailto:jepicaju862@gmail.com)
 
-本项目与 Obsidian、腾讯/微信官方无从属关系。参考
-[Side-Comments-origin](https://github.com/jepicaju862-lab/Side-Comments-origin)
-的开源、许可和发布方式，不复用其批注运行时代码。
+本项目与 Obsidian、腾讯/微信官方无从属关系。

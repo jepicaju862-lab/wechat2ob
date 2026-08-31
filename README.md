@@ -116,6 +116,4 @@ rights to the separately distributed backend or other products.
 [Email](mailto:jepicaju862@gmail.com)
 
 This is an independent third-party project, not an official Obsidian or Tencent
-product. Its publishing and licensing conventions follow
-[Side-Comments-origin](https://github.com/jepicaju862-lab/Side-Comments-origin);
-it does not reuse that plugin's annotation runtime.
+product.
