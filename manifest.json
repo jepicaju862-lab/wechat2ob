@@ -1,0 +1,9 @@
+{
+  "id": "wechat2ob",
+  "name": "WeChat2Ob",
+  "version": "0.1.7",
+  "minAppVersion": "1.11.4",
+  "description": "将微信 ClawBot 消息独立同步为 Markdown 笔记、Bases 视图与 .duowei 表格。",
+  "author": "peyote",
+  "isDesktopOnly": true
+}

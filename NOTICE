@@ -1,0 +1,19 @@
+WeChat2Ob — Obsidian inbox client
+Copyright (C) 2026 peyote
+SPDX-License-Identifier: GPL-3.0-only
+
+This program is free software: you can redistribute it and/or modify it
+under the terms of version 3 of the GNU General Public License as published
+by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See LICENSE.
+
+Corresponding source, build scripts, and license:
+https://github.com/jepicaju862-lab/wechat2ob
+Use the tag matching the version in manifest.json for a release's source.
+
+This distribution contains the Obsidian client only. It does not contain
+the separately operated inbox backend or grant a license to that backend.
+See LICENSE_SCOPE.md and THIRD_PARTY_NOTICES.md.

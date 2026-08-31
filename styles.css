@@ -1,0 +1,36 @@
+/* SPDX-License-Identifier: GPL-3.0-only; Copyright (C) 2026 peyote */
+/* Status card: connection state is the first thing the settings tab answers. */
+.wechat2ob-settings .wechat2ob-card { border: 1px solid var(--background-modifier-border); border-left-width: 4px; border-radius: 8px; padding: 12px 14px; margin: 4px 0 18px; background: var(--background-secondary); }
+.wechat2ob-settings .wechat2ob-card.is-ok { border-left-color: var(--color-green); }
+.wechat2ob-settings .wechat2ob-card.is-warn { border-left-color: var(--color-yellow); }
+.wechat2ob-settings .wechat2ob-card.is-error { border-left-color: var(--color-red); }
+.wechat2ob-settings .wechat2ob-card-head { display: flex; align-items: center; gap: 8px; }
+.wechat2ob-settings .wechat2ob-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--color-green); }
+.wechat2ob-settings .is-warn .wechat2ob-dot { background: var(--color-yellow); }
+.wechat2ob-settings .is-error .wechat2ob-dot { background: var(--color-red); }
+.wechat2ob-settings .wechat2ob-card-title { font-weight: var(--font-semibold); }
+.wechat2ob-settings .wechat2ob-card-sub { margin-top: 4px; color: var(--text-muted); font-size: var(--font-ui-small); overflow-wrap: anywhere; }
+
+/* Dependent settings sit indented under the toggle that reveals them. */
+.wechat2ob-settings .wechat2ob-sub { margin-left: 6px; padding-left: 16px; border-left: 2px solid var(--background-modifier-border); }
+.wechat2ob-settings .wechat2ob-sub:empty { display: none; }
+.wechat2ob-settings .wechat2ob-sub .setting-item:last-child { border-bottom: none; }
+
+/* Rarely-used blocks stay folded so the common path is short. */
+.wechat2ob-settings .wechat2ob-fold { margin: 8px 0 18px; padding: 0 14px; border: 1px solid var(--background-modifier-border); border-radius: 8px; }
+.wechat2ob-settings .wechat2ob-fold > summary { padding: 10px 0; cursor: pointer; color: var(--text-muted); font-size: var(--font-ui-small); }
+.wechat2ob-settings .wechat2ob-fold[open] > summary { margin-bottom: 4px; border-bottom: 1px solid var(--background-modifier-border); }
+.wechat2ob-settings .wechat2ob-fold .setting-item:last-of-type { border-bottom: none; }
+
+/* Settings only take effect on save, so the save control follows the scroll. */
+.wechat2ob-settings .wechat2ob-savebar { position: sticky; bottom: 0; z-index: 5; display: flex; align-items: center; gap: 10px; padding: 12px 0; margin-top: 8px; background: var(--background-primary); border-top: 1px solid var(--background-modifier-border); }
+.wechat2ob-settings .wechat2ob-savebar-hint { margin-right: auto; color: var(--text-faint); font-size: var(--font-ui-small); }
+.wechat2ob-settings .wechat2ob-savebar.is-dirty .wechat2ob-savebar-hint { color: var(--text-warning); font-weight: var(--font-semibold); }
+.wechat2ob-settings .wechat2ob-savebar.is-dirty .wechat2ob-savebar-hint::before { content: "\25CF  "; }
+.wechat2ob-settings .wechat2ob-savebar:not(.is-dirty) .wechat2ob-reset { display: none; }
+
+.wechat2ob-settings .wechat2ob-muted { color: var(--text-faint); font-size: var(--font-ui-smaller); }
+.wechat2ob-settings input[type="text"], .wechat2ob-settings input[type="password"], .wechat2ob-settings input[type="number"] { max-width: 100%; }
+.wechat2ob-settings input.wechat2ob-number { width: 7em; }
+.wechat2ob-status { max-width: 300px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.wechat2ob-status.wechat2ob-status-error { color: var(--text-error); }
