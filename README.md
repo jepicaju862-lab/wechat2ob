@@ -52,9 +52,9 @@ Obsidian Bases 视图和 `.duowei` 表格，三种输出可组合使用。
 
 | 平台 | 下载（百度网盘） |
 | --- | --- |
-| Windows 10/11 x64 | [WeChat2Ob-Inbox-0.1.1-win32-x64.zip](https://pan.baidu.com/s/1BtqNJD_6_JkYKz7wWOIS2A?pwd=qrq3) · 提取码 `qrq3` |
-| macOS 13.5+ Apple 芯片 | [WeChat2Ob-Inbox-0.1.1-darwin-mac-arm64.zip](https://pan.baidu.com/s/1fSEEcyGH7eYJZtLfwpG6Og?pwd=sdt2) · 提取码 `sdt2` |
-| macOS 13.5+ Intel | [WeChat2Ob-Inbox-0.1.1-darwin-mac-x64.zip](https://pan.baidu.com/s/14-kprOxIZI6z6Qv7yFG7ww?pwd=5tsb) · 提取码 `5tsb` |
+| Windows 10/11 x64 | [WeChat2Ob-Inbox-0.1.1-win32-x64.zip](https://pan.baidu.com/s/13Xu41uWUGWhreMjdRcOpZQ?pwd=7tvc) · 提取码 `7tvc` |
+| macOS 13.5+ Apple 芯片 | [WeChat2Ob-Inbox-0.1.1-darwin-mac-arm64.zip](https://pan.baidu.com/s/11kypfi_81FwH1dx9oIXZjw?pwd=emb6) · 提取码 `emb6` |
+| macOS 13.5+ Intel | [WeChat2Ob-Inbox-0.1.1-darwin-mac-x64.zip](https://pan.baidu.com/s/1iKXTrAb0SLF5izguixkImw?pwd=u786) · 提取码 `5tsb` |
 
 服务版本 0.1.1，内置官方 Node.js 24.20.0，无需另装 Node.js、Python、FFmpeg 或 Docker。
 安装前请先阅读压缩包内的 `先读我.md`。安装器未做商业签名或 Apple 公证，
