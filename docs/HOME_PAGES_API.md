@@ -36,6 +36,8 @@ interface ApiMessage {
   kind: string;               // text / image / voice / video / file / mixed
   title: string; content: string; transcript: string;
   receivedAt: string;         // ISO timestamp
+  sessionId: string;          // conversation, for grouping consecutive messages
+  senderId: string;
   notePath?: string;          // note the message was appended to
   tablePath?: string;         // table the message was added to
   attachments: { path: string; kind: string; mimeType: string }[];  // vault paths

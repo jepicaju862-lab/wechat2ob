@@ -58,6 +58,8 @@ test("query summarizes journals newest first with receipts, attachments and filt
   assert.equal(inbox.attachments,1);
   assert.equal(inbox.pending,4,"every managed table row starts as 待整理");
   assert.equal(inbox.messages[1].transcript,"下午开会");
+  assert.equal(inbox.messages[0].sessionId,"chat");
+  assert.equal(inbox.messages[0].senderId,"user");
   assert.match(inbox.messages[0].notePath??"",/^日记\/\d{4}-\d\d-\d\d\.md$/);
   assert.equal(inbox.messages[0].tablePath,"WeChat2Ob/微信收件箱.duowei");
   assert.equal(inbox.messages[2].attachments[0].mimeType,"image/png");

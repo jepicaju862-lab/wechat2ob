@@ -8,6 +8,8 @@ import {duoweiPath} from "./duowei";
 // Contract: docs/HOME_PAGES_API.md. Other plugins must not read state/ directly.
 export interface ApiMessage {
   key: string; kind: string; title: string; content: string; transcript: string; receivedAt: string;
+  /** Conversation and sender, so consumers can group consecutive messages. */
+  sessionId: string; senderId: string;
   notePath?: string; tablePath?: string;
   attachments: {path: string; kind: string; mimeType: string}[];
 }
@@ -73,6 +75,7 @@ export class InboxIndex {
       const m=j.message;
       messages.push({
         time,key:j.key,kind:m.kind,title:m.title,content:m.content,transcript:m.transcript,receivedAt:m.receivedAt,
+        sessionId:m.sessionId,senderId:m.senderId,
         notePath:receipts.find(([key,r])=>key.startsWith("notes:")&&r.path?.endsWith(".md"))?.[1].path,
         tablePath:receipts.find(([key,r])=>key.startsWith("duowei:")&&r.path?.endsWith(".duowei"))?.[1].path,
         attachments:j.attachments.map(a=>({path:a.path,kind:a.kind,mimeType:a.mimeType}))
