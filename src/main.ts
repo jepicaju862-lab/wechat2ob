@@ -12,11 +12,15 @@ import { notePath } from "./notes";
 import { ObsidianVault } from "./vault";
 import {checkDuoweiTarget,duoweiPath} from "./duowei";
 import {renderDuoweiSettings} from "./duowei-settings";
+import {InboxIndex,READY_EVENT,SYNCED_EVENT,type WeChat2ObApi} from "./api";
 
 export default class WeChat2Ob extends Plugin {
   settings:Settings={...DEFAULT_SETTINGS};
   engine!:SyncEngine;
   port!:ObsidianVault;
+  inbox!:InboxIndex;
+  /** Public read/sync API for other plugins; see docs/HOME_PAGES_API.md. */
+  api?:WeChat2ObApi;
   clientId="";
   status="尚未同步";
   statusTone:"ok"|"error"="ok";
@@ -37,7 +41,9 @@ export default class WeChat2Ob extends Plugin {
     this.clientId=id;
     this.secretId=tokenSecretId(id);
     this.port=new ObsidianVault(this.app);
-    this.engine=new SyncEngine(this.port,`${this.manifest.dir || this.app.vault.configDir+"/plugins/wechat2ob"}/state`,id);
+    const stateRoot=`${this.manifest.dir || this.app.vault.configDir+"/plugins/wechat2ob"}/state`;
+    this.engine=new SyncEngine(this.port,stateRoot,id);
+    this.inbox=new InboxIndex(this.port,stateRoot);
     this.statusItem=this.addStatusBarItem();
     this.statusItem.addClass("wechat2ob-status");
     this.updateStatus("就绪");
@@ -48,6 +54,13 @@ export default class WeChat2Ob extends Plugin {
     this.addCommand({id:"open-inbox",name:"打开收件箱",callback:()=>void this.openInbox()});
     this.addCommand({id:"pause",name:"暂停自动同步",callback:()=>void this.saveConfiguration({...this.settings,autoSync:false})});
     this.addCommand({id:"resume",name:"开启自动同步",callback:()=>void this.saveConfiguration({...this.settings,autoSync:true})});
+    this.api={
+      version:1,
+      query:(options={})=>this.inbox.query(this.settings,options),
+      sync:()=>this.sync(true),
+      openInbox:()=>this.openInbox()
+    };
+    this.app.workspace.trigger(READY_EVENT,this.api);
     this.app.workspace.onLayoutReady(()=>{
       if(this.disposed) return;
       const timer=nodeInterval(()=>{
@@ -56,7 +69,7 @@ export default class WeChat2Ob extends Plugin {
       this.register(()=>clearNodeInterval(timer));
     });
   }
-  onunload() { this.disposed=true; this.engine?.stop(); }
+  onunload() { this.disposed=true; this.engine?.stop(); this.api=undefined; }
   get busy() { return this.configuring || this.engine?.busy; }
   token():string { return this.app.secretStorage?.getSecret(this.secretId)?.trim() || ""; }
   setToken(value:string) {
@@ -108,6 +121,7 @@ export default class WeChat2Ob extends Plugin {
       const client=new Client(this.settings.endpoint,this.token());
       const result=await this.engine.sync(client,this.settings);
       if(this.disposed) return;
+      if(result.fetched) { this.inbox.invalidate(); this.app.workspace.trigger(SYNCED_EVENT); }
       if(result.failed) throw new Error(`${result.failed} 条未完成，可重试；${result.errors[0]}`);
       this.failures=0;
       this.nextRun=Date.now()+this.settings.intervalSeconds*1000;
