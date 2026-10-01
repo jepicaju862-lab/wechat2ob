@@ -10,9 +10,9 @@ import { DEFAULT_SETTINGS, hash, tokenSecretId, settingsFrom, validateSettings, 
 import {basePath} from "./bases";
 import { notePath } from "./notes";
 import { ObsidianVault } from "./vault";
-import {checkDuoweiTarget,duoweiPath} from "./duowei";
+import {checkDuoweiTarget,duoweiPath,setProcessedInTable} from "./duowei";
 import {renderDuoweiSettings} from "./duowei-settings";
-import {InboxIndex,READY_EVENT,SYNCED_EVENT,type WeChat2ObApi} from "./api";
+import {CHANGED_EVENT,InboxIndex,READY_EVENT,SYNCED_EVENT,type WeChat2ObApi} from "./api";
 
 export default class WeChat2Ob extends Plugin {
   settings:Settings={...DEFAULT_SETTINGS};
@@ -58,7 +58,8 @@ export default class WeChat2Ob extends Plugin {
       version:1,
       query:(options={})=>this.inbox.query(this.settings,options),
       sync:()=>this.sync(true),
-      openInbox:()=>this.openInbox()
+      openInbox:()=>this.openInbox(),
+      setProcessed:(keys,processed)=>this.setProcessed(keys,processed)
     };
     this.app.workspace.trigger(READY_EVENT,this.api);
     this.app.workspace.onLayoutReady(()=>{
@@ -137,6 +138,20 @@ export default class WeChat2Ob extends Plugin {
     const text=error instanceof Error?error.message:"操作失败";
     this.updateStatus(text.slice(0,150),"error");
     if(notify) new Notice(`WeChat2Ob：${text}`,9000);
+  }
+  /** Marks messages 已整理 / 待整理 in the inbox table (no-op without table output). */
+  async setProcessed(keys:string[],processed:boolean):Promise<{changed:number;skipped:number}> {
+    const list=Array.isArray(keys)?keys.filter(k=>typeof k==="string"&&/^[a-f\d]{64}$/i.test(k)):[];
+    if(!this.settings.duowei || !list.length) return {changed:0,skipped:list.length};
+    const path=duoweiPath(this.settings);
+    if(!await this.port.exists(path)) return {changed:0,skipped:list.length};
+    // Write only when something changes; recompute on the latest text so a concurrent sync append survives.
+    const preview=setProcessedInTable(await this.port.read(path),list,processed,this.settings);
+    if(!preview.changed) return {changed:0,skipped:preview.skipped};
+    let result=preview;
+    await this.port.process(path,latest=>{ result=setProcessedInTable(latest,list,processed,this.settings); return result.text; });
+    if(result.changed) this.app.workspace.trigger(CHANGED_EVENT);
+    return {changed:result.changed,skipped:result.skipped};
   }
   async openInbox() {
     const path=this.settings.bases?basePath(this.settings):this.settings.notes?notePath(this.settings,new Date().toISOString()):duoweiPath(this.settings);

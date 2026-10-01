@@ -122,6 +122,41 @@ export function appendDuowei(text:string,j:Journal,note:string|null,s?:Settings)
   doc.records.push({id:rowId,values:mapped,createdAt:stamp,updatedAt:stamp,revision:0});
   doc.meta.updatedAt=stamp;
   doc.meta.revision=(Number.isSafeInteger(doc.meta.revision)?doc.meta.revision:0)+1;
-  // Never add/change existing columns, options, view settings, or records.
+  // Never add/change existing columns, options, view settings, or records (status: see setProcessedInTable).
   return JSON.stringify(doc,null,2)+"\n";
+}
+export const PENDING_STATUS="待整理";
+export const DONE_STATUS="已整理";
+/**
+ * Marks this plugin's rows for `keys` as 已整理 (or back to 待整理). Only rows this plugin added are
+ * touched, and only when they still carry the opposite status, so statuses set by hand stay. A select
+ * column without a 已整理 option is left alone: options are never added to a user's table.
+ */
+export function setProcessedInTable(text:string,keys:string[],processed:boolean,s?:Settings):{text:string;changed:number;skipped:number} {
+  const doc=inspectDuowei(text),map=validateDuowei(doc,s);
+  const statusId=map.status;
+  const field=statusId?doc.fields.find((f:any)=>f.id===statusId):null;
+  if(!field)return {text,changed:0,skipped:keys.length};
+  const select=["singleSelect","multiSelect"].includes(field.type);
+  const optionId=(name:string)=>select?(field.options||[]).find((o:any)=>o?.name===name)?.id:name;
+  const from=optionId(processed?PENDING_STATUS:DONE_STATUS),to=optionId(processed?DONE_STATUS:PENDING_STATUS);
+  if(to===undefined || from===undefined)return {text,changed:0,skipped:keys.length};
+  const value=field.type==="multiSelect"?[to]:to;
+  const wanted=new Set(keys);
+  const stamp=now();
+  let changed=0,skipped=0;
+  for(const r of doc.records) {
+    const key=typeof r.id==="string"&&r.id.startsWith("rec_w2o_")?r.id.slice(8):map.message?r.values[map.message]:undefined;
+    if(typeof key!=="string" || !wanted.has(key))continue;
+    const current=[r.values[statusId]].flat();
+    if(!current.includes(from)){ if(!current.includes(to))skipped++; continue; }
+    r.values[statusId]=value;
+    r.updatedAt=stamp;
+    r.revision=(Number.isSafeInteger(r.revision)?r.revision:0)+1;
+    changed++;
+  }
+  if(!changed)return {text,changed,skipped};
+  doc.meta.updatedAt=stamp;
+  doc.meta.revision=(Number.isSafeInteger(doc.meta.revision)?doc.meta.revision:0)+1;
+  return {text:JSON.stringify(doc,null,2)+"\n",changed,skipped};
 }

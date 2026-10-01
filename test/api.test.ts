@@ -5,6 +5,7 @@ import test from "node:test";
 import {randomUUID} from "node:crypto";
 import {SyncEngine} from "../src/engine";
 import {InboxIndex} from "../src/api";
+import {duoweiPath,newDuowei,setProcessedInTable} from "../src/duowei";
 import {DEFAULT_SETTINGS,hash,type InboxClient,type Message,type Settings,type VaultPort} from "../src/model";
 
 class MemoryVault implements VaultPort {
@@ -96,4 +97,52 @@ test("corrupt or foreign files in state are skipped",async()=>{
   await vault.write(`${stream}/notes.json`,JSON.stringify({format:1}));
   assert.equal((await index.query(s)).messages.length,1);
   assert.deepEqual((await new InboxIndex(new MemoryVault(),state).query(s)).messages,[],"missing state folder");
+});
+
+test("setProcessed flips only this plugin's rows between 待整理 and 已整理, keeping hand-set statuses",async()=>{
+  const s:Settings={...DEFAULT_SETTINGS,duowei:true};
+  const [a,b,c]=[message(),message(),message()];
+  const {vault,index}=await synced(s,[a,b,c]);
+  const keyOf=(m:Message)=>hash("http://127.0.0.1:7342\n"+m.id);
+  const path=duoweiPath(s);
+  const table=()=>JSON.parse(vault.files.get(path) as string);
+  const status=(m:Message)=>table().records.find((r:any)=>r.id===`rec_w2o_${keyOf(m)}`).values.fld_w2o_status;
+  assert.equal((await index.query(s)).pending,3);
+
+  // A hand-set status on c must survive.
+  const doc=table();doc.records.find((r:any)=>r.id===`rec_w2o_${keyOf(c)}`).values.fld_w2o_status="重要";
+  vault.files.set(path,JSON.stringify(doc));
+
+  const done=setProcessedInTable(vault.files.get(path) as string,[keyOf(a),keyOf(c)],true,s);
+  assert.equal(done.changed,1);
+  assert.equal(done.skipped,1,"hand-set status is skipped");
+  vault.files.set(path,done.text);
+  assert.deepEqual([status(a),status(b),status(c)],["已整理","待整理","重要"]);
+  assert.equal((await index.query(s)).pending,1,"pending count follows");
+
+  const again=setProcessedInTable(done.text,[keyOf(a)],true,s);
+  assert.equal(again.changed,0,"idempotent");
+  assert.equal(again.text,done.text,"no rewrite when nothing changes");
+
+  const back=setProcessedInTable(done.text,[keyOf(a)],false,s);
+  assert.equal(back.changed,1);
+  vault.files.set(path,back.text);
+  assert.equal(status(a),"待整理");
+  assert.ok(JSON.parse(back.text).meta.revision>JSON.parse(done.text).meta.revision,"table revision bumps");
+});
+
+test("mapped select tables are only updated when a 已整理 option already exists",()=>{
+  const doc=newDuowei();
+  const statusField=doc.fields.find((f:any)=>f.id==="fld_w2o_status");
+  statusField.type="singleSelect";
+  statusField.options=[{id:"opt_pending",name:"待整理"}];
+  doc.records.push({id:"rec_w2o_"+"a".repeat(64),values:{fld_w2o_content:"x",fld_w2o_status:"opt_pending"},createdAt:"",updatedAt:"",revision:0});
+  const s:Settings={...DEFAULT_SETTINGS,duowei:true,duoweiMode:"mapped",duoweiPath:"t.duowei",duoweiTableId:doc.id,duoweiFieldMap:{content:"fld_w2o_content",status:"fld_w2o_status"}};
+  const missing=setProcessedInTable(JSON.stringify(doc),["a".repeat(64)],true,s);
+  assert.equal(missing.changed,0,"no 已整理 option: nothing changes, no option is added");
+  assert.equal(JSON.parse(missing.text).fields.find((f:any)=>f.id==="fld_w2o_status").options.length,1);
+  statusField.options.push({id:"opt_done",name:"已整理"});
+  const ok=setProcessedInTable(JSON.stringify(doc),["a".repeat(64)],true,s);
+  assert.equal(ok.changed,1);
+  assert.equal(JSON.parse(ok.text).records[0].values.fld_w2o_status,"opt_done","stores the option id");
 });

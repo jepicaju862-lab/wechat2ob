@@ -8,6 +8,7 @@ The implementation is `src/api.ts`. The API never exposes tokens, endpoints or c
 const api = app.plugins.plugins["wechat2ob"]?.api;   // undefined if disabled or settings are invalid
 app.workspace.on("wechat2ob:ready", (api) => { /* the plugin (re)loaded */ });
 app.workspace.on("wechat2ob:synced", () => { /* new messages were written; query again */ });
+app.workspace.on("wechat2ob:changed", () => { /* statuses changed (setProcessed); query again */ });
 ```
 
 ## Version 1
@@ -18,6 +19,10 @@ interface WeChat2ObApi {
   query(options?: { days?: number; limit?: number; kinds?: string[] }): Promise<ApiInbox>;
   sync(): Promise<void>;      // same as the “sync now” command; feedback via notices and the status bar
   openInbox(): Promise<void>; // same as the “open inbox” command
+  // Marks messages 已整理 (processed) or back to 待整理 in the inbox table. Only rows this plugin
+  // added, and only between those two statuses (statuses set by hand stay); a select column
+  // without a 已整理 option is left alone (counted in `skipped`). No-op without table output.
+  setProcessed(keys: string[], processed: boolean): Promise<{ changed: number; skipped: number }>;
 }
 
 interface ApiInbox {

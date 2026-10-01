@@ -24,9 +24,13 @@ export interface WeChat2ObApi {
   query(options?: QueryOptions): Promise<ApiInbox>;
   sync(): Promise<void>;
   openInbox(): Promise<void>;
+  /** Marks messages 已整理 (processed) or back to 待整理 in the inbox table; no-op without table output. */
+  setProcessed(keys: string[], processed: boolean): Promise<{ changed: number; skipped: number }>;
 }
 export const READY_EVENT="wechat2ob:ready";
 export const SYNCED_EVENT="wechat2ob:synced";
+/** Fired when the inbox changed without a sync, e.g. setProcessed updated statuses. */
+export const CHANGED_EVENT="wechat2ob:changed";
 
 const DAY=86400000;
 const int=(value:unknown,min:number,max:number,fallback:number)=>typeof value==="number"&&Number.isFinite(value)?Math.min(max,Math.max(min,Math.floor(value))):fallback;
